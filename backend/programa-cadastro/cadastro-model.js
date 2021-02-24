@@ -1,25 +1,64 @@
-var alunosCadastrados = [];
+//imports
+const readLine = require('readline-sync');
 
-const cadastrar = (pessoa) => {alunosCadastrados.push(pessoa)};
+listaAlunos = [];
 
+function dadoObrigatorio(nomeCampo){
 
-const procurarCadastrar = (pessoa) => {
+    var dado = '';
+
+    while (dado === '') {
     
-const existeAluno = (alunoN) => {alunosCadastrados.some(pessoa => pessoa.nome === alunoN.nome)};
+        dado = readLine.question(`Digite ${nomeCampo}: `);
+        
+        if(!dado){
+            console.log('Esse dado é obrigatório');
+        } 
 
-    if (existeAluno){
-        console.log('Aluno já cadastrado')
-    } else {cadastrar(pessoa)}
-    console.log(alunosCadastrados);
-
+    } 
+    
+    return dado;
 }
 
+function main(){
+    console.log('início do programa');
 
-module.exports = {
-    cadastro: procurarCadastrar,
-    cadastrados: alunosCadastrados
+    var start = true;
 
+    while(start) {
+
+        console.log("1 - cadastrar um aluno");
+        console.log("2 - exibir todos os alunos");
+        console.log("3 - desligar");
+
+        const opcao = readLine.question('Escolha uma opcao:')
+
+        switch(opcao) {
+
+            case '1': 
+
+                console.log('escolheu cadastrar');
+                const nome = dadoObrigatorio("Nome");
+                const dataNascimento = dadoObrigatorio("Data Nascimento");
+                const sexo = readLine.question('digite seu sexo: ');
+
+                listaAlunos.push({id: listaAlunos.length + 1
+                    , nome, dataNascimento, sexo})
+                break;
+            case '2': 
+                console.log('exibir a lista de alunos');
+
+                break;
+            
+            case '3': 
+                console.log('desligar');
+                start = false;
+                break;
+            
+            default:
+                console.log('opção inexistente');
+                break;
+        }
+    }
 }
-//let hasMagenicVendor = vendors.some( vendor => vendor['Name'] === 'Magenic' )
-
-    
+main();

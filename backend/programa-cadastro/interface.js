@@ -12,3 +12,10 @@ while(oper!=2) {
 cadastroModel.cadastro(alunoNovo);
 oper = readLine.question('Digite 1 para cadastrar novos alunos ou 2 para exibir os alunos cadastrados:\n')
 } console.log(cadastroModel.cadastrados);
+
+alunos.forEach(alunos => {
+    if(alunos.name === nomeAluno){
+        console.log('Esse nome é foi informado, O seu cadastro não podera ser concluido, Tente novamente!');
+        start()
+    } 
+});
