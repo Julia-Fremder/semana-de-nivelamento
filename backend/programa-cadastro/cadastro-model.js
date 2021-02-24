@@ -20,6 +20,14 @@ function dadoObrigatorio(nomeCampo){
     return dado;
 }
 
+function verificarNome(nome) {
+    const nomeRepetido = listaAlunos.some((item) => {
+        return item.nome === nome
+    });
+
+    return nomeRepetido
+}
+
 function main(){
     console.log('início do programa');
 
@@ -39,11 +47,19 @@ function main(){
 
                 console.log('escolheu cadastrar');
                 const nome = dadoObrigatorio("Nome");
-                const dataNascimento = dadoObrigatorio("Data Nascimento");
-                const sexo = readLine.question('digite seu sexo: ');
+                const repetido = nomeRepetido(nome);
 
-                listaAlunos.push({id: listaAlunos.length + 1
-                    , nome, dataNascimento, sexo})
+                    if(repetido){
+                        console.log("usuário já cadastrado";)
+                    } else {
+
+                    const dataNascimento = dadoObrigatorio("Data Nascimento");
+                    const sexo = readLine.question('digite seu sexo: ');
+
+                    listaAlunos.push({id: listaAlunos.length + 1
+                        , nome, dataNascimento, sexo})
+                    }
+                    
                 break;
             case '2': 
                 console.log('exibir a lista de alunos');
