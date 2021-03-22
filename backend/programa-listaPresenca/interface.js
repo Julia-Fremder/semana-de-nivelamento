@@ -18,3 +18,5 @@ listaPresenca = alunos.lista.map(item => {
         })
 
 console.log(listaPresenca);
+
+

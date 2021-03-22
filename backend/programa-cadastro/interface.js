@@ -1,21 +1,84 @@
+//imports
 const readLine = require('readline-sync');
-const cadastroModel = require('./cadastro-model')
 
-let oper = readLine.question('Digite 1 para cadastrar novos alunos ou 2 para exibir os alunos cadastrados:\n')
+const listaAlunos = [];
 
-while(oper!=2) {
-    const name = readLine.question('preencha o nome do aluno: \n');
-    const dataNascimento = readLine.question('preencha a data de nascimento: \n');
-    const sexo = readLine.question('preencha F para mulher e M para Homem: \n');
-    const alunoNovo = {nome:name, dataNascimento:dataNascimento, sexo:sexo};
+function dadoObrigatorio(nomeCampo){
 
-cadastroModel.cadastro(alunoNovo);
-oper = readLine.question('Digite 1 para cadastrar novos alunos ou 2 para exibir os alunos cadastrados:\n')
-} console.log(cadastroModel.cadastrados);
+    var dado = '';
 
-alunos.forEach(alunos => {
-    if(alunos.name === nomeAluno){
-        console.log('Esse nome é foi informado, O seu cadastro não podera ser concluido, Tente novamente!');
-        start()
+    while (dado === '') {
+    
+        dado = readLine.question(`Digite ${nomeCampo}: `);
+        
+        if(!dado){
+            console.log('Esse dado é obrigatório');
+        } 
+
     } 
-});
+    
+    return dado;
+}
+
+function verificarNome(nome) {
+    const nomeRepetido = listaAlunos.some((item) => {
+        return item.nome === nome
+    });
+
+    return nomeRepetido
+}
+
+function main(){
+    console.log('início do programa');
+
+    var start = true;
+
+    while(start) {
+
+        console.log("\n1 - cadastrar um aluno");
+        console.log("2 - exibir todos os alunos");
+        console.log("3 - desligar");
+
+        const opcao = readLine.question('Escolha uma opcao:')
+
+        switch(opcao) {
+
+            case '1': 
+
+                console.log('escolheu cadastrar');
+                const nome = dadoObrigatorio("Nome");
+                const repetido = verificarNome(nome);
+
+                    if(repetido){
+                        console.log("\nUsuário já cadastrado.")
+                    } else {
+
+                    const dataNascimento = dadoObrigatorio("Data Nascimento");
+                    const sexo = readLine.question('digite seu sexo: ');
+
+                    listaAlunos.push({id: listaAlunos.length + 1, nome, dataNascimento, sexo})
+                    }
+
+                break;
+            case '2': 
+                console.log('Exibir a lista de alunos.');
+                
+                listaAlunos.forEach((item) => {
+                    console.log(`${item.id} - ${item.nome}`);
+                });
+
+
+                break;
+            
+            case '3': 
+                console.log('Desligar...\n');
+                start = false;
+                break;
+            
+            default:
+                console.log('Opção inexistente.\n');
+                break;
+        }
+    }
+}
+main();
